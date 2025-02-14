@@ -22,8 +22,14 @@ const Title = styled.h2`
 
 const FilterTabs = styled.div`
   display: flex;
-  gap: 1.5rem;
-  margin-bottom: 2rem;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap; /* ✅ Allow buttons to wrap on mobile */
+  justify-content: center; /* ✅ Center items properly */
+
+  @media (max-width: 768px) {
+    gap: 0.5rem; /* ✅ Reduce spacing between buttons */
+  }
 `;
 
 const FilterButton = styled.button<{ active: boolean }>`
@@ -32,11 +38,21 @@ const FilterButton = styled.button<{ active: boolean }>`
   color: ${(props) => (props.active ? '#ffd700' : '#888')};
   cursor: pointer;
   font-size: 1rem;
-  padding: 0.5rem;
+  padding: 0.5rem 1rem;
   transition: color 0.3s ease;
 
   &:hover {
     color: #ffd700;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 0.9rem; /* ✅ Decrease font size */
+    padding: 0.4rem 0.8rem; /* ✅ Reduce padding */
+  }
+
+  @media (max-width: 480px) {
+    font-size: 0.85rem; /* ✅ Further reduce size for very small screens */
+    padding: 0.3rem 0.6rem;
   }
 `;
 
@@ -139,10 +155,10 @@ const Projects = ({ adminMode }: Props) => {
           All
         </FilterButton>
         <FilterButton active={activeFilter === 'Applications'} onClick={() => setActiveFilter('Applications')}>
-          Applications
+          Mobile App
         </FilterButton>
         <FilterButton active={activeFilter === 'Web development'} onClick={() => setActiveFilter('Web development')}>
-          Web development
+          Web App
         </FilterButton>
         <FilterButton active={activeFilter === 'UI/UX'} onClick={() => setActiveFilter('UI/UX')}>
           UI/UX
