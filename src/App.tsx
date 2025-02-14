@@ -1,6 +1,7 @@
-import styled from '@emotion/styled'
-import Profile from './components/Profile'
-import MainContent from './components/MainContent'
+import { useState } from 'react';
+import styled from '@emotion/styled';
+import Profile from './components/Profile';
+import MainContent from './components/MainContent';
 
 const AppContainer = styled.div`
   min-height: 100vh;
@@ -16,7 +17,7 @@ const AppContainer = styled.div`
   @media (max-width: 768px) {
     padding: 1rem;
   }
-`
+`;
 
 const ContentWrapper = styled.div`
   max-width: 1200px;
@@ -32,7 +33,7 @@ const ContentWrapper = styled.div`
     gap: 1.5rem;
     max-width: 800px;
   }
-`
+`;
 
 const FixedSidebar = styled.div`
   position: sticky;
@@ -44,7 +45,7 @@ const FixedSidebar = styled.div`
     position: relative;
     top: auto;
   }
-`
+`;
 
 const ScrollableContent = styled.div`
   overflow-y: auto;
@@ -68,21 +69,23 @@ const ScrollableContent = styled.div`
     background-color: rgba(255, 255, 255, 0.1);
     border-radius: 3px;
   }
-`
+`;
 
 function App() {
+  const [adminMode, setAdminMode] = useState(false); // ✅ Add adminMode state
+
   return (
     <AppContainer>
       <ContentWrapper>
         <FixedSidebar>
-          <Profile />
+          <Profile setAdminMode={setAdminMode} />  {/* ✅ Pass setAdminMode */}
         </FixedSidebar>
         <ScrollableContent>
-          <MainContent />
+          <MainContent adminMode={adminMode} />  {/* Pass adminMode to MainContent */}
         </ScrollableContent>
       </ContentWrapper>
     </AppContainer>
-  )
+  );
 }
 
-export default App
+export default App;

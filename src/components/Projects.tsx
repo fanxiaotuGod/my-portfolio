@@ -2,14 +2,22 @@
 import { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import axios from 'axios';
+import AddProject from './AddProject';
+import EditProject from './EditProject';
+import DeleteProject from './DeleteProject';
 
 const Section = styled.section`
   margin-bottom: 3rem;
 `;
 
+const TitleRow = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
 const Title = styled.h2`
   font-size: 2rem;
-  margin-bottom: 1.5rem;
 `;
 
 const FilterTabs = styled.div`
@@ -42,14 +50,11 @@ const ProjectCard = styled.div`
   background-color: #1a1a1a;
   border-radius: 0.5rem;
   overflow: hidden;
-  opacity: 0;
-  transform: scale(0.6);
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   transition: all 0.3s ease-out;
-
-  &.visible {
-    opacity: 1;
-    transform: scale(1);
-  }
 
   &:hover {
     transform: translateY(-5px);
@@ -57,7 +62,7 @@ const ProjectCard = styled.div`
 `;
 
 const ProjectInfo = styled.div`
-  padding: 1rem;
+  flex: 1;
 `;
 
 const ProjectTitle = styled.h3`
@@ -68,6 +73,11 @@ const ProjectTitle = styled.h3`
 const ProjectType = styled.p`
   color: #888;
   font-size: 0.9rem;
+`;
+
+const AdminActions = styled.div`
+  display: flex;
+  gap: 0.5rem;
 `;
 
 type Project = {
@@ -81,20 +91,37 @@ type Project = {
 
 type Filter = 'All' | 'Applications' | 'Web development' | 'UI/UX';
 
-const Projects = () => {
+type Props = {
+  adminMode: boolean; // ✅ Receive adminMode as a prop
+};
+
+const Projects = ({ adminMode }: Props) => {
   const [projects, setProjects] = useState<Project[]>([]);
   const [activeFilter, setActiveFilter] = useState<Filter>('All');
-  const [visible, setVisible] = useState(false);
 
-  // ✅ Fetch projects from MySQL API
   useEffect(() => {
     axios.get('http://localhost:5001/projects')
-      .then((response) => {
-        setProjects(response.data);
-        setVisible(true);
-      })
+      .then((response) => setProjects(response.data))
       .catch((error) => console.error('Error fetching projects:', error));
   }, []);
+
+  const handleProjectAdded = () => {
+    axios.get('http://localhost:5001/projects')
+      .then((response) => setProjects(response.data))
+      .catch((error) => console.error('Error refreshing projects:', error));
+  };
+
+  const handleProjectUpdated = () => {
+    axios.get('http://localhost:5001/projects')
+      .then((response) => setProjects(response.data))
+      .catch((error) => console.error('Error refreshing projects:', error));
+  };
+
+  const handleProjectDeleted = () => {
+    axios.get('http://localhost:5001/projects')
+      .then((response) => setProjects(response.data))
+      .catch((error) => console.error('Error refreshing projects:', error));
+  };
 
   const filteredProjects = projects.filter((project) => 
     activeFilter === 'All' ? true : project.tech_stack.includes(activeFilter)
@@ -102,7 +129,10 @@ const Projects = () => {
 
   return (
     <Section>
-      <Title>Projects</Title>
+      <TitleRow>
+        <Title>Projects</Title>
+        {adminMode && <AddProject onProjectAdded={handleProjectAdded} />}
+      </TitleRow>
 
       <FilterTabs>
         <FilterButton active={activeFilter === 'All'} onClick={() => setActiveFilter('All')}>
@@ -120,21 +150,35 @@ const Projects = () => {
       </FilterTabs>
 
       <ProjectGrid>
-        {filteredProjects.map((project, index) => (
-          <ProjectCard
-            key={project.id}
-            className={visible ? 'visible' : ''}
-            style={{
-              transitionDelay: `${index * 0.1}s`,
-            }}
-          >
-            <ProjectInfo>
-              <ProjectTitle>{project.name}</ProjectTitle>
-              <ProjectType>{project.tech_stack}</ProjectType>
-              <p>{project.description}</p>
-              <a href={project.repo_link} target="_blank" rel="noopener noreferrer">GitHub Repo</a> |
-              <a href={project.live_demo} target="_blank" rel="noopener noreferrer"> Live Demo</a>
-            </ProjectInfo>
+        {filteredProjects.map((project) => (
+          <ProjectCard key={project.id}>
+      <ProjectInfo>
+        <ProjectTitle>{project.name}</ProjectTitle>
+        <ProjectType>{project.tech_stack}</ProjectType>
+        <p>{project.description}</p>
+        
+        {/* Ensure URLs have "https://" */}
+        <a href={project.repo_link.startsWith('http') ? project.repo_link : `https://${project.repo_link}`} 
+          target="_blank" 
+          rel="noopener noreferrer">
+          GitHub Repo
+        </a>
+        {" | "}
+        <a href={project.live_demo.startsWith('http') ? project.live_demo : `https://${project.live_demo}`} 
+          target="_blank" 
+          rel="noopener noreferrer">
+          Live Demo
+        </a>
+
+      </ProjectInfo>
+
+
+            {adminMode && (  
+              <AdminActions>
+                <EditProject project={project} onProjectUpdated={handleProjectUpdated} />
+                <DeleteProject projectId={project.id} onProjectDeleted={handleProjectDeleted} />
+              </AdminActions>
+            )}
           </ProjectCard>
         ))}
       </ProjectGrid>

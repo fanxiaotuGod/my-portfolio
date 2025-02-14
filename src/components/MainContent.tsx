@@ -36,7 +36,11 @@ const ContentContainer = styled.div<{ isVisible: boolean }>`
 
 type Tab = 'about' | 'resume' | 'projects'
 
-const MainContent = () => {
+interface MainContentProps {
+  adminMode: boolean;  // ✅ Accept adminMode prop
+}
+
+const MainContent = ({ adminMode }: MainContentProps) => {  // ✅ Receive adminMode
   const [activeTab, setActiveTab] = useState<Tab>('about')
   const [isVisible, setIsVisible] = useState(true)
 
@@ -55,7 +59,7 @@ const MainContent = () => {
       case 'resume':
         return <Resume />
       case 'projects':
-        return <Projects />
+        return <Projects adminMode={adminMode} />  // ✅ Pass adminMode to Projects
       default:
         return <About />
     }
@@ -91,4 +95,4 @@ const MainContent = () => {
   )
 }
 
-export default MainContent 
+export default MainContent
