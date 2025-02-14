@@ -27,6 +27,7 @@ const Section = styled.section`
   position: relative;
   overflow: hidden;
   width: 100%;
+  mid-width: 0;
 `;
 
 const Title = styled.h2`

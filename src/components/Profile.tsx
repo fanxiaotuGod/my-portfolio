@@ -83,6 +83,14 @@ const Name = styled.h1`
   font-size: 2.2rem;
   color: white;
   margin: 0;
+
+  @media (max-width: 768px) {
+    font-size: 1.5rem;  /* Decrease font size for mobile screens */
+  }
+
+  @media (max-width: 480px) {
+    font-size: 1.2rem;  /* Further decrease for very small screens */
+  }
 `;
 
 const Title = styled.div`
@@ -91,7 +99,16 @@ const Title = styled.div`
   padding: 0.6rem 1.2rem;
   border-radius: 0.5rem;
   font-size: 1.1rem;
+
+  @media (max-width: 768px) {
+    font-size: 0.8rem; /* Slightly smaller on tablets */
+  }
+
+  @media (max-width: 480px) {
+    font-size: 0.6rem; /* Smaller font for mobile screens */
+  }
 `;
+
 
 const ContactInfo = styled.div<{ isExpanded: boolean }>`
   margin-top: 2rem;
@@ -250,7 +267,7 @@ const Profile = ({ setAdminMode }: { setAdminMode: (value: boolean) => void }) =
 
       <ProfileContent>
         <AvatarContainer onClick={handleAvatarClick}>
-          <img src="/pics/selfie.jpeg" alt="Profile" />
+          <img src="src/pics/selfie.jpeg" alt="Profile" />
         </AvatarContainer>
 
         <ProfileInfo>
