@@ -54,7 +54,7 @@ const About = () => {
         A UBC Computer Science and Mathematics student passionate about full-stack development and emerging technologies, from AI to decentralized systems. I love turning ideas into reality through hackathons and personal projects, blending functional code with intuitive UI/UX design.
         </Description>
         <Description>
-        When I’m not coding, you’ll find me rock climbing, playing basketball, or badminton—activities that fuel my perseverance and teamwork mindset.Eager to collaborate on tech that marries innovation with purpose. Let’s create something impactful!
+        When I’m not coding, you’ll find me rock climbing, playing basketball, or badminton—activities that fuel my perseverance and teamwork mindset. Eager to collaborate on tech that marries innovation with purpose. Let’s create something impactful!
         </Description>
       </Section>
       

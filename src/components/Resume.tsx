@@ -139,58 +139,39 @@ const Resume = () => {
       {/* Experience Section */}
       <Category>
         <CategoryTitle>
-          <FaBriefcase /> Experience
+          <FaBriefcase /> Related Experience
         </CategoryTitle>
         
         <ExperienceItem>
-          <Institution>Mid-Level Flutter Developer</Institution>
-          <SubTitle>Tokma Technologies</SubTitle>
-          <Duration>Aug, 2024 — Present • 7 mos</Duration>
-          <Location>Kathmandu, Nepal</Location>
+          <Institution>UBC GAVE Development Club</Institution>
+          <SubTitle>Software Development Engineer</SubTitle>
+          <Duration>Sep, 2024 — Present</Duration>
+          <Location>Vancouver, Canada</Location>
           <BulletPoints>
-            <li>Developed new features and implemented UI designs into code using Flutter.</li>
-            <li>Designed and created custom e-form features including scrolling features and data entries.</li>
-            <li>Integrated Google and Facebook sign-in for user authentication.</li>
-            <li>Designed dynamic functionalities using the BLOC design pattern.</li>
-            <li>Integrated APIs for seamless data communication and backend functionality.</li>
-            <li>Implemented payment gateway integration like Khalti for secure transactions.</li>
-            <li>Collaborated with other developers and backend team to deliver features.</li>
-            <li>Participated in team meetings to discuss new features and project updates.</li>
-            <li>Ensured smooth functionality and user-friendly experiences throughout the app.</li>
-            <li>Performed code review and deployed the app in Playstore and Appstore.</li>
+            <li>Developed and programmed interactive 2D and 3D game mechanics using Unity and C#.</li>
+            <li>Utilized version control (Git, GitHub) for collaborative development with the team.</li>
+            <li>Collaborated with artists and designers to create immersive gameplay experiences.</li>
+            <li>Participated in weekly sprint meetings to discuss progress, features, and challenges.</li>
           </BulletPoints>
         </ExperienceItem>
 
+
         <ExperienceItem>
-          <Institution>Flutter Developer</Institution>
-          <SubTitle>Inflancer Technology</SubTitle>
-          <Duration>Oct, 2022 — Aug, 2024 • 1 yr, 11 mos</Duration>
-          <Location>Kathmandu, Nepal</Location>
+          <Institution>UBC CIC Generative AI and Sustainability Hackathon</Institution>
+          <SubTitle>Medical Diagnostic Project – Software Engineer</SubTitle>
+          <Duration>March, 2024</Duration>
+          <Location>Vancouver, Canada</Location>
           <BulletPoints>
-            <li>Developed new features and transformed UI designs into fully functional user interfaces.</li>
-            <li>Integrated payment solution like eSewa for secure and seamless transactions.</li>
-            <li>Optimized application performance to ensure a smooth and engaging user experience.</li>
-            <li>Supported other team members initiatives by developing solutions to common problems and sharing those solutions.</li>
-            <li>Identified and resolved bugs, improving app stability and performance.</li>
-            <li>Wrote clean, maintainable, and testable code following best practices.</li>
-            <li>Utilization of latest version of support libraries to ensure backend compatibility.</li>
-            <li>Collaborated with backend developers, designers, and cross-functional teams to deliver scalable, high-quality solutions.</li>
-            <li>Performed code review and deployed the app in Playstore and Appstore.</li>
+            <li>Developed an AI-powered medical diagnostic app using AWS services.</li>
+            <li>Built a Flutter-based frontend to provide online consultations to users.</li>
+            <li>Implemented AWS Cognito for user authentication and secure login.</li>
+            <li>Designed and integrated RESTful APIs using AWS API Gateway and Lambda functions.</li>
+            <li>Leveraged AWS Bedrock to generate symptom-based medical recommendations.</li>
+            <li>Enhanced healthcare accessibility for underserved regions through AI-driven solutions.</li>
+            <li>Worked in a fast-paced hackathon environment, collaborating with a multidisciplinary team.</li>
           </BulletPoints>
         </ExperienceItem>
 
-        <ExperienceItem>
-          <Institution>Flutter Developer Intern</Institution>
-          <SubTitle>YAJ Tech PVT. Ltd</SubTitle>
-          <Duration>May, 2022 — Sep, 2022 • 5 mos</Duration>
-          <Location>Kathmandu, Nepal</Location>
-          <BulletPoints>
-            <li>Assisted in developing and maintaining Flutter applications, ensuring seamless functionality and user-friendly interfaces.</li>
-            <li>Supported the implementation of visually appealing UI designs that aligned with client requirements and design principles.</li>
-            <li>Collaborated with cross-functional teams, including back-end developers and designers, to deliver efficient, high-quality, and scalable solutions.</li>
-            <li>Gained hands-on experience in debugging, troubleshooting, and refining app features to improve user experience.</li>
-          </BulletPoints>
-        </ExperienceItem>
       </Category>
     </Section>
   )

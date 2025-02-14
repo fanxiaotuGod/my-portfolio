@@ -97,9 +97,18 @@ const ContactInfo = styled.div<{ isExpanded: boolean }>`
   margin-top: 2rem;
   overflow: hidden;
   transition: max-height 0.5s ease, opacity 0.5s ease;
-  max-height: ${props => (props.isExpanded ? '500px' : '0')};
-  opacity: ${props => (props.isExpanded ? 1 : 0)};
+  
+  // ✅ Keep it expanded in desktop view
+  max-height: ${({ isExpanded }) => (isExpanded ? "500px" : "0")};
+  opacity: ${({ isExpanded }) => (isExpanded ? 1 : 0)};
+
+  @media (min-width: 1025px) {
+    max-height: 100%;  // ✅ Ensure it's always visible
+    opacity: 1;  
+    overflow: visible;  // ✅ Prevent clipping
+  }
 `;
+
 
 const ContactItem = styled.div`
   display: flex;

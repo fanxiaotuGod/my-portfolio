@@ -41,11 +41,11 @@ const WhatIDo = () => {
       <Grid>
         <Card>
           <CardTitle>
-            <span>📱</span>
-            Mobile Apps
+            <span>🎓</span>
+            UBC Student
           </CardTitle>
           <CardDescription>
-            Professional development of applications for Android and iOS.
+            Learning Math and CS. Passionated about programming. CGPA at 3.9.
           </CardDescription>
         </Card>
 
@@ -55,27 +55,37 @@ const WhatIDo = () => {
             Web Development
           </CardTitle>
           <CardDescription>
-            High-quality development of sites at the professional level.
+            Doing my personal projects while learning related tech stacks. Focusing on both front-end and back-end.
           </CardDescription>
         </Card>
 
         <Card>
           <CardTitle>
-            <span>🎨</span>
-            UI/UX Design
+            <span>🎮</span>
+            Game Dev
           </CardTitle>
           <CardDescription>
-            The most modern and high-quality design made at a professional level.
+            Developing games using unity and c#, collaborate with other teamates.
           </CardDescription>
         </Card>
 
         <Card>
           <CardTitle>
-            <span>⚙️</span>
-            Backend Development
+            <span>📱</span>
+            Mobile App Development
           </CardTitle>
           <CardDescription>
-            High-performance backend services designed for scalability and seamless user experience.
+            Learning developing high-quality apps for both andrew and ios. 
+          </CardDescription>
+        </Card>
+
+        <Card>
+          <CardTitle>
+            <span>🧑‍💻</span>
+            About Portfolio
+          </CardTitle>
+          <CardDescription>
+            This portfolio is deployed by setting up CI/CD pipeline using AWS services and host it under a custom domain.
           </CardDescription>
         </Card>
       </Grid>
