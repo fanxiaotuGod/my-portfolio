@@ -99,11 +99,6 @@ const ContactInfo = styled.div<{ isExpanded: boolean }>`
   transition: max-height 0.5s ease, opacity 0.5s ease;
   max-height: ${props => (props.isExpanded ? '500px' : '0')};
   opacity: ${props => (props.isExpanded ? 1 : 0)};
-
-  @media (min-width: 1025px) {
-    max-height: none;
-    opacity: 1;
-  }
 `;
 
 const ContactItem = styled.div`
@@ -153,6 +148,28 @@ const SocialLinks = styled.div`
   }
 `;
 
+const ToggleButton = styled.button`
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  background-color: #1a1a1a;
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background 0.3s;
+
+  &:hover {
+    background-color: #333;
+  }
+
+  @media (min-width: 1025px) {
+    display: none;
+  }
+`;
+
 const PasswordPrompt = styled.div`
   position: absolute;
   top: 100%;
@@ -199,6 +216,7 @@ const Profile = ({ setAdminMode }: { setAdminMode: (value: boolean) => void }) =
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
+  // ✅ Keep both "Show Contact" and Admin Mode separate
   const handleAvatarClick = () => {
     setShowPrompt(true);
     setError('');
@@ -216,6 +234,11 @@ const Profile = ({ setAdminMode }: { setAdminMode: (value: boolean) => void }) =
 
   return (
     <ProfileCard>
+      {/* ✅ Toggle Button for Show/Hide Contact Info */}
+      <ToggleButton onClick={() => setIsExpanded(!isExpanded)}>
+        {isExpanded ? "Hide Contact" : "Show Contact"}
+      </ToggleButton>
+
       <ProfileContent>
         <AvatarContainer onClick={handleAvatarClick}>
           <img src="src/pics/selfie.jpeg" alt="Profile" />
@@ -253,9 +276,9 @@ const Profile = ({ setAdminMode }: { setAdminMode: (value: boolean) => void }) =
         </ContactItem>
 
         <SocialLinks>
-          <a href="https://www.linkedin.com/in/haocheng-stephen-fan-236b16309/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          <a href="https://linkedin.com/in/haocheng-stephen-fan-236b16309/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
           <a href="https://github.com/fanxiaotuGod" target="_blank" rel="noopener noreferrer">GitHub</a>
-          <a href="https://www.instagram.com/haocheng.f/" target="_blank" rel="noopener noreferrer">Instagram</a>
+          <a href="https://instagram.com/haocheng.f/" target="_blank" rel="noopener noreferrer">Instagram</a>
         </SocialLinks>
       </ContactInfo>
 
