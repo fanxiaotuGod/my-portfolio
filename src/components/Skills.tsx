@@ -90,13 +90,13 @@ const LogosWrapper = styled.div`
   @media (max-width: 1024px) {
     animation-duration: 12s;
     gap: 2rem;
-    width : 820px
+    width : 800px
   }
 
   @media (max-width: 768px) {
     animation-duration: 10s;
     gap: 1.5rem;
-    width : 420px
+    width : 340px
   }
 `;
 
@@ -121,7 +121,7 @@ const SkillItem = styled.div`
   }
 
   @media (max-width: 768px) {
-    width: 70px;
+    width: 60px;
     img {
       height: 50px;
     }
