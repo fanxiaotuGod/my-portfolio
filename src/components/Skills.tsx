@@ -96,7 +96,7 @@ const LogosWrapper = styled.div`
   @media (max-width: 768px) {
     animation-duration: 10s;
     gap: 1.5rem;
-    width : 300px
+    width : 250px
   }
 `;
 
