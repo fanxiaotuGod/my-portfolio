@@ -60,6 +60,16 @@ const ProjectGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 1rem;
+
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); /* ✅ Smaller columns for mobile */
+    gap: 0.8rem; /* ✅ Reduce gap */
+  }
+
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr; /* ✅ Single column for very small screens */
+    gap: 0.6rem; /* ✅ Reduce gap further */
+  }
 `;
 
 const ProjectCard = styled.div`
@@ -75,7 +85,18 @@ const ProjectCard = styled.div`
   &:hover {
     transform: translateY(-5px);
   }
+
+  @media (max-width: 768px) {
+    flex-direction: column; /* ✅ Stack items vertically on mobile */
+    align-items: center; /* ✅ Center content */
+    padding: 0.8rem; /* ✅ Reduce padding */
+  }
+
+  @media (max-width: 480px) {
+    padding: 0.6rem; /* ✅ Even smaller padding */
+  }
 `;
+
 
 const ProjectInfo = styled.div`
   flex: 1;
@@ -160,9 +181,9 @@ const Projects = ({ adminMode }: Props) => {
         <FilterButton active={activeFilter === 'Web development'} onClick={() => setActiveFilter('Web development')}>
           Web App
         </FilterButton>
-        <FilterButton active={activeFilter === 'UI/UX'} onClick={() => setActiveFilter('UI/UX')}>
+        {/* <FilterButton active={activeFilter === 'UI/UX'} onClick={() => setActiveFilter('UI/UX')}>
           UI/UX
-        </FilterButton>
+        </FilterButton> */}
       </FilterTabs>
 
       <ProjectGrid>
