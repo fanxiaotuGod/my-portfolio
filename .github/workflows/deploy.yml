@@ -17,7 +17,7 @@ jobs:
         run: npm install  # Install dependencies for building the portfolio
 
       - name: Build Project
-        run: npm run build  # Build the portfolio
+        run: npm run build  # Build the portfolio using Vite
 
       - name: Deploy to S3
         uses: jakejarvis/s3-sync-action@master
@@ -28,4 +28,4 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: ${{ secrets.AWS_REGION }}
-          SOURCE_DIR: "build"  # Make sure this is the correct build folder
+          SOURCE_DIR: "dist"  # ✅ Corrected for Vite!
