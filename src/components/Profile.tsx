@@ -267,7 +267,7 @@ const Profile = ({ setAdminMode }: { setAdminMode: (value: boolean) => void }) =
 
       <ProfileContent>
         <AvatarContainer onClick={handleAvatarClick}>
-          <img src="src/pics/selfie.jpeg" alt="Profile" />
+          <img src="assets/selfie.jpeg" alt="Profile" />
         </AvatarContainer>
 
         <ProfileInfo>

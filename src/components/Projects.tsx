@@ -60,17 +60,21 @@ const ProjectGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 1rem;
+  width: 100%;
+  min-height: 200px; /* ✅ Ensure there’s space to show items */
 
+  /* ✅ Mobile Fix */
   @media (max-width: 768px) {
-    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); /* ✅ Smaller columns for mobile */
-    gap: 0.8rem; /* ✅ Reduce gap */
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); /* ✅ Adjust grid for mobile */
+    gap: 0.8rem;
   }
 
   @media (max-width: 480px) {
     grid-template-columns: 1fr; /* ✅ Single column for very small screens */
-    gap: 0.6rem; /* ✅ Reduce gap further */
+    gap: 0.6rem;
   }
 `;
+
 
 const ProjectCard = styled.div`
   background-color: #1a1a1a;
@@ -78,22 +82,24 @@ const ProjectCard = styled.div`
   overflow: hidden;
   padding: 1rem;
   display: flex;
-  justify-content: space-between;
+  flex-direction: column; /* ✅ Stack content on mobile */
   align-items: center;
+  text-align: center;
   transition: all 0.3s ease-out;
+  
+  /* 🔴 Debugging: Add border to check visibility */
+  border: 2px solid red;
 
   &:hover {
     transform: translateY(-5px);
   }
 
   @media (max-width: 768px) {
-    flex-direction: column; /* ✅ Stack items vertically on mobile */
-    align-items: center; /* ✅ Center content */
-    padding: 0.8rem; /* ✅ Reduce padding */
+    padding: 0.8rem;
   }
 
   @media (max-width: 480px) {
-    padding: 0.6rem; /* ✅ Even smaller padding */
+    padding: 0.6rem;
   }
 `;
 
