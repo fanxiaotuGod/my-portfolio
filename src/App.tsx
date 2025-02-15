@@ -41,7 +41,7 @@ const ContentWrapper = styled.div`
 
   /* On mobile, further adjust for content overflow */
   @media (max-width: 768px) {
-    padding: 0 1rem;  /* Ensure padding for small screens */
+    // padding: 0 1rem;  /* Ensure padding for small screens */
     box-sizing: border-box;
   }
 `;
