@@ -2,6 +2,8 @@ import { useState } from 'react';
 import styled from '@emotion/styled';
 import axios from 'axios';
 
+const API_URL = "https://my-portfolio-production-17cf.up.railway.app/projects";
+
 const Button = styled.button`
   padding: 0.4rem 0.8rem;
   border: none;
@@ -25,6 +27,11 @@ const Button = styled.button`
     background-color: #888;
     &:hover { background: #666; }
   }
+
+  &:disabled {
+    background: #444;
+    cursor: not-allowed;
+  }
 `;
 
 const InputField = styled.input`
@@ -47,18 +54,27 @@ const EditContainer = styled.div`
 const EditProject = ({ project, onProjectUpdated }: { project: any, onProjectUpdated: () => void }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [updatedProject, setUpdatedProject] = useState({ ...project });
-  const [saving, setSaving] = useState(false);  // Track saving state
+  const [saving, setSaving] = useState(false);
 
   const handleEditProject = async () => {
-    setSaving(true); // Start saving state
-    try {
-      await axios.put(`http://localhost:5001/projects/${project.id}`, updatedProject);
-      onProjectUpdated();  // ✅ Refresh project list
-      setIsEditing(false); // ✅ Exit edit mode
-    } catch (error) {
-      console.error('Error updating project:', error);
+    if (!updatedProject.name || !updatedProject.description || !updatedProject.tech_stack) {
+      alert("⚠️ All fields are required!");
+      return;
     }
-    setSaving(false); // Stop saving state
+
+    if (!window.confirm("⚡ Confirm update for this project?")) return;
+
+    setSaving(true);
+    try {
+      await axios.put(`${API_URL}/${project.id}`, updatedProject);
+      alert("✅ Project updated successfully!");
+      onProjectUpdated(); 
+      setIsEditing(false);
+    } catch (error) {
+      console.error("❌ Error updating project:", error);
+      alert("❌ Update failed! Please check your network or backend.");
+    }
+    setSaving(false);
   };
 
   return (

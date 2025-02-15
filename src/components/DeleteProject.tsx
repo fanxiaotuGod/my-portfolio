@@ -1,5 +1,8 @@
+import { useState } from 'react';
 import axios from 'axios';
 import styled from '@emotion/styled';
+
+const API_URL = "https://my-portfolio-production-17cf.up.railway.app/projects";
 
 const DeleteButton = styled.button`
   background-color: #E53935;
@@ -14,16 +17,35 @@ const DeleteButton = styled.button`
   &:hover {
     background: #FF5252;
   }
+
+  &:disabled {
+    background: #888;
+    cursor: not-allowed;
+  }
 `;
 
 const DeleteProject = ({ projectId, onProjectDeleted }: { projectId: number, onProjectDeleted: () => void }) => {
-  const handleDeleteProject = () => {
-    axios.delete(`http://localhost:5001/projects/${projectId}`)
-      .then(() => onProjectDeleted())
-      .catch((error) => console.error('Error deleting project:', error));
+  const [loading, setLoading] = useState(false);
+
+  const handleDeleteProject = async () => {
+    if (!window.confirm("❗ Are you sure you want to delete this project?")) return;
+
+    setLoading(true);
+    try {
+      await axios.delete(`${API_URL}/${projectId}`);
+      alert("✅ Project deleted successfully!");
+      onProjectDeleted();
+    } catch (error) {
+      console.error("❌ Error deleting project:", error);
+      alert("❌ Failed to delete project. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
-  return <DeleteButton onClick={handleDeleteProject}>Delete</DeleteButton>;
+  return <DeleteButton onClick={handleDeleteProject} disabled={loading}>
+    {loading ? "Deleting..." : "Delete"}
+  </DeleteButton>;
 };
 
 export default DeleteProject;

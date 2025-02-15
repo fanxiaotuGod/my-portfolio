@@ -2,6 +2,8 @@ import { useState } from 'react';
 import styled from '@emotion/styled';
 import axios from 'axios';
 
+const API_URL = "https://my-portfolio-production-17cf.up.railway.app/projects";
+
 const PopupForm = styled.div`
   position: fixed;
   top: 50%;
@@ -33,9 +35,15 @@ const SubmitButton = styled.button`
   cursor: pointer;
   border-radius: 0.5rem;
   margin-top: 1rem;
+  transition: 0.3s;
 
   &:hover {
     background: #ffed4a;
+  }
+
+  &:disabled {
+    background: #888;
+    cursor: not-allowed;
   }
 `;
 
@@ -70,6 +78,7 @@ const AddButton = styled.button`
 
 const AddProject = ({ onProjectAdded }: { onProjectAdded: () => void }) => {
   const [showForm, setShowForm] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [newProject, setNewProject] = useState({
     name: '',
     description: '',
@@ -78,14 +87,25 @@ const AddProject = ({ onProjectAdded }: { onProjectAdded: () => void }) => {
     live_demo: '',
   });
 
-  const handleAddProject = () => {
-    axios.post('http://localhost:5001/projects', newProject)
-      .then(() => {
-        onProjectAdded();  // Refresh project list
-        setShowForm(false);
-        setNewProject({ name: '', description: '', tech_stack: '', repo_link: '', live_demo: '' });
-      })
-      .catch((error) => console.error('Error adding project:', error));
+  const handleAddProject = async () => {
+    if (!newProject.name || !newProject.description || !newProject.tech_stack || !newProject.repo_link || !newProject.live_demo) {
+      alert("❌ All fields are required.");
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const response = await axios.post(API_URL, newProject);
+      alert("✅ Project added successfully!");
+      onProjectAdded();
+      setShowForm(false);
+      setNewProject({ name: '', description: '', tech_stack: '', repo_link: '', live_demo: '' });
+    } catch (error) {
+      console.error("❌ Error adding project:", error);
+      alert("❌ Failed to add project. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -101,7 +121,9 @@ const AddProject = ({ onProjectAdded }: { onProjectAdded: () => void }) => {
           <Input type="text" placeholder="Tech Stack" value={newProject.tech_stack} onChange={(e) => setNewProject({ ...newProject, tech_stack: e.target.value })} />
           <Input type="text" placeholder="GitHub Repo" value={newProject.repo_link} onChange={(e) => setNewProject({ ...newProject, repo_link: e.target.value })} />
           <Input type="text" placeholder="Live Demo Link" value={newProject.live_demo} onChange={(e) => setNewProject({ ...newProject, live_demo: e.target.value })} />
-          <SubmitButton onClick={handleAddProject}>Submit</SubmitButton>
+          <SubmitButton onClick={handleAddProject} disabled={loading}>
+            {loading ? "Adding..." : "Submit"}
+          </SubmitButton>
         </PopupForm>
       )}
     </>
