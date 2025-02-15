@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import styled from '@emotion/styled';
-import axios from 'axios';
+
 
 // ✅ Use environment variable for API URL
-const API_URL = "https://my-portfolio-production-17cf.up.railway.app/projects";
+
 
 const PopupForm = styled.div`
   position: fixed;
@@ -96,7 +96,6 @@ const AddProject = ({ onProjectAdded }: { onProjectAdded: () => void }) => {
 
     setLoading(true);
     try {
-      const response = await axios.post(API_URL, newProject);
       alert("✅ Project added successfully!");
       onProjectAdded();
       setShowForm(false);

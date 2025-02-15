@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import styled from '@emotion/styled';
-import axios from 'axios';
+
 
 // ✅ Use environment variable for API URL
-const API_URL =  "https://my-portfolio-production-17cf.up.railway.app/projects";
+
 
 const Button = styled.button`
   padding: 0.4rem 0.8rem;
@@ -74,7 +74,7 @@ const EditProject = ({ project, onProjectUpdated }: { project: any, onProjectUpd
 
     setSaving(true);
     try {
-      const response = await axios.put(`${API_URL}/${project.id}`, updatedProject);
+
       alert("✅ Project updated successfully!");
       onProjectUpdated(); 
       setIsEditing(false);
