@@ -7,20 +7,24 @@ dotenv.config();
 
 // ✅ Create a MySQL connection pool
 const db = mysql.createPool({
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME,
-    port: process.env.DB_PORT || 3306,
+    host: process.env.MYSQLHOST,         // ✅ Use correct MySQL host
+    user: process.env.MYSQLUSER,         // ✅ Use correct MySQL user
+    password: process.env.MYSQLPASSWORD, // ✅ Use correct MySQL password
+    database: process.env.MYSQLDATABASE, // ✅ Use correct MySQL database name
+    port: process.env.MYSQLPORT || 3306, // ✅ Use correct MySQL port (default 3306)
     waitForConnections: true,
     connectionLimit: 10,
     queueLimit: 0
 });
 
-
 const app = express();
 app.use(cors());
 app.use(express.json());
+
+// ✅ Health Check API
+app.get('/', (req, res) => {
+    res.send("🚀 Portfolio API is running!");
+});
 
 // ✅ API to Fetch Projects from MySQL
 app.get('/projects', async (req, res) => {
@@ -57,7 +61,7 @@ app.post('/projects', async (req, res) => {
 
 // ✅ API to Update a Project
 app.put('/projects/:id', async (req, res) => {
-    const projectId = parseInt(req.params.id, 10); // Convert to integer
+    const projectId = parseInt(req.params.id, 10);
     const { name, description, tech_stack, repo_link, live_demo } = req.body;
 
     if (!projectId) {
@@ -85,7 +89,7 @@ app.put('/projects/:id', async (req, res) => {
 
 // ✅ API to Delete a Project
 app.delete('/projects/:id', async (req, res) => {
-    const projectId = parseInt(req.params.id, 10); // Convert to integer
+    const projectId = parseInt(req.params.id, 10);
 
     if (!projectId) {
         return res.status(400).json({ error: "Invalid project ID" });
@@ -107,9 +111,8 @@ app.delete('/projects/:id', async (req, res) => {
 });
 
 // ✅ Start Server
-const PORT = process.env.PORT || 8080; // ✅ Use Railway's assigned port
+const PORT = process.env.PORT || 8080;
 
 app.listen(PORT, "0.0.0.0", () => {
     console.log(`🚀 Server running on http://0.0.0.0:${PORT}`);
 });
-
