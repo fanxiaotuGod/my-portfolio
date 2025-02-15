@@ -1,17 +1,26 @@
 import express from "express";
 import cors from "cors";
-import mysql from "mysql2/promise"; // Use promise-based MySQL
+import mysql from "mysql2/promise";
 import dotenv from "dotenv";
 
-dotenv.config();
+dotenv.config(); // ✅ Load .env file
 
-// ✅ Create a MySQL connection pool
+// 🔍 Debugging: Log Environment Variables
+console.log("📌 DB Config:", {
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD ? "✅ Loaded" : "❌ Not Set",
+    database: process.env.DB_NAME,
+    port: process.env.DB_PORT
+});
+
+// ✅ Create MySQL Connection Pool
 const db = mysql.createPool({
-    host: process.env.MYSQLHOST,         // ✅ Use correct MySQL host
-    user: process.env.MYSQLUSER,         // ✅ Use correct MySQL user
-    password: process.env.MYSQLPASSWORD, // ✅ Use correct MySQL password
-    database: process.env.MYSQLDATABASE, // ✅ Use correct MySQL database name
-    port: process.env.MYSQLPORT || 3306, // ✅ Use correct MySQL port (default 3306)
+    host: process.env.DB_HOST || "localhost",
+    user: process.env.DB_USER || "root",
+    password: process.env.DB_PASSWORD || "",
+    database: process.env.DB_NAME || "test",
+    port: process.env.DB_PORT ? Number(process.env.DB_PORT) : 3306,
     waitForConnections: true,
     connectionLimit: 10,
     queueLimit: 0
@@ -21,13 +30,29 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// ✅ Health Check API
-app.get('/', (req, res) => {
-    res.send("🚀 Portfolio API is running!");
+// ✅ **Test Database Connection on Startup**
+(async () => {
+    try {
+        const connection = await db.getConnection();
+        console.log("✅ MySQL Connection Successful");
+        connection.release();
+    } catch (err) {
+        console.error("❌ MySQL Connection Failed:", err.message);
+    }
+})();
+
+// ✅ API: Check API & DB Connection
+app.get("/health", async (req, res) => {
+    try {
+        const [result] = await db.query("SELECT 1");
+        res.json({ status: "✅ API & Database Connected", db: result });
+    } catch (err) {
+        res.status(500).json({ error: "❌ Database Connection Failed", details: err.message });
+    }
 });
 
-// ✅ API to Fetch Projects from MySQL
-app.get('/projects', async (req, res) => {
+// ✅ API: Fetch Projects
+app.get("/projects", async (req, res) => {
     try {
         const [rows] = await db.query("SELECT * FROM projects");
         res.json(rows);
@@ -37,8 +62,8 @@ app.get('/projects', async (req, res) => {
     }
 });
 
-// ✅ API to Add a New Project
-app.post('/projects', async (req, res) => {
+// ✅ API: Add a New Project
+app.post("/projects", async (req, res) => {
     const { name, description, tech_stack, repo_link, live_demo } = req.body;
 
     if (!name || !description || !tech_stack || !repo_link || !live_demo) {
@@ -59,8 +84,8 @@ app.post('/projects', async (req, res) => {
     }
 });
 
-// ✅ API to Update a Project
-app.put('/projects/:id', async (req, res) => {
+// ✅ API: Update a Project
+app.put("/projects/:id", async (req, res) => {
     const projectId = parseInt(req.params.id, 10);
     const { name, description, tech_stack, repo_link, live_demo } = req.body;
 
@@ -87,8 +112,8 @@ app.put('/projects/:id', async (req, res) => {
     }
 });
 
-// ✅ API to Delete a Project
-app.delete('/projects/:id', async (req, res) => {
+// ✅ API: Delete a Project
+app.delete("/projects/:id", async (req, res) => {
     const projectId = parseInt(req.params.id, 10);
 
     if (!projectId) {
@@ -110,9 +135,13 @@ app.delete('/projects/:id', async (req, res) => {
     }
 });
 
+// ✅ API: Root Endpoint
+app.get("/", (req, res) => {
+    res.send("🚀 Portfolio API is running!");
+});
+
 // ✅ Start Server
 const PORT = process.env.PORT || 8080;
-
 app.listen(PORT, "0.0.0.0", () => {
     console.log(`🚀 Server running on http://0.0.0.0:${PORT}`);
 });
