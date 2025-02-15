@@ -3,7 +3,7 @@ import axios from 'axios';
 import styled from '@emotion/styled';
 
 // ✅ Use environment variable for API URL
-const API_URL = "https://my-portfolio-production-17cf.up.railway.app/projects";
+const API_BASE_URL = "https://my-portfolio-production-17cf.up.railway.app";
 
 const DeleteButton = styled.button`
   background-color: #E53935;
@@ -25,28 +25,25 @@ const DeleteButton = styled.button`
   }
 `;
 
-const DeleteProject = ({ projectId, onProjectDeleted }: { projectId: number, onProjectDeleted: () => void }) => {
-  const [loading, setLoading] = useState(false);
+  const DeleteProject = ({ projectId, onProjectDeleted }: { projectId: number, onProjectDeleted: () => void }) => {
+    const [loading, setLoading] = useState(false);
 
-  const handleDeleteProject = async () => {
-    if (!window.confirm("❗ Are you sure you want to delete this project?")) return;
+    const handleDeleteProject = async () => {
+      if (!window.confirm("❗ Are you sure you want to delete this project?")) return;
 
-    setLoading(true);
-    try {
-      await axios.delete(`${API_URL}/${projectId}`);
-      alert("✅ Project deleted successfully!");
-      onProjectDeleted();
-    } catch (error: any) {
-      console.error("❌ Error deleting project:", error);
-      if (error.response) {
-        alert(`❌ Failed: ${error.response.data.error || "Something went wrong"}`);
-      } else {
-        alert("❌ Network error, check your connection.");
+      setLoading(true);
+      try {
+        await axios.delete(`${API_BASE_URL}/projects/${projectId}`); // ✅ Send DELETE request
+        alert("✅ Project deleted successfully!");
+        onProjectDeleted(); // ✅ Trigger refresh
+      } catch (error) {
+        console.error("❌ Error deleting project:", error);
+        alert("❌ Failed to delete project. Please try again.");
+      } finally {
+        setLoading(false);
       }
-    } finally {
-      setLoading(false);
-    }
   };
+
 
   return (
     <DeleteButton onClick={handleDeleteProject} disabled={loading}>

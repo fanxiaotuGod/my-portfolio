@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import styled from '@emotion/styled';
-
+import axios from 'axios';
 
 // ✅ Use environment variable for API URL
+const API_BASE_URL = "https://my-portfolio-production-17cf.up.railway.app";
 
 
 const Button = styled.button`
@@ -63,18 +64,11 @@ const EditProject = ({ project, onProjectUpdated }: { project: any, onProjectUpd
       return;
     }
 
-    // ✅ Avoid unnecessary API calls if nothing changed
-    if (JSON.stringify(updatedProject) === JSON.stringify(project)) {
-      alert("⚠️ No changes detected.");
-      setIsEditing(false);
-      return;
-    }
-
     if (!window.confirm("⚡ Confirm update for this project?")) return;
 
     setSaving(true);
     try {
-
+      await axios.put(`${API_BASE_URL}/projects/${project.id}`, updatedProject); // ✅ Send PUT request
       alert("✅ Project updated successfully!");
       onProjectUpdated(); 
       setIsEditing(false);
@@ -88,7 +82,8 @@ const EditProject = ({ project, onProjectUpdated }: { project: any, onProjectUpd
     } finally {
       setSaving(false);
     }
-  };
+};
+
 
   return (
     <>
