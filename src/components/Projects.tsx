@@ -5,7 +5,7 @@ import axios from 'axios';
 import AddProject from './AddProject';
 import EditProject from './EditProject';
 import DeleteProject from './DeleteProject';
-
+import '../App.css';
 const API_BASE_URL = "https://my-portfolio-production-17cf.up.railway.app"; // ✅ Use Railway URL
 
 const Section = styled.section`
@@ -101,18 +101,45 @@ const ProjectCard = styled.div`
   }
 `;
 
-const ProjectInfo = styled.div`
-  flex: 1;
-`;
+
 
 const ProjectTitle = styled.h3`
-  font-size: 1.2rem;
+  font-size: 1.2rem; /* Default font size */
   margin-bottom: 0.5rem;
+
+  @media (max-width: 768px) {
+    font-size: 1rem; /* Smaller font size for tablets and mobile */
+  }
+
+  @media (max-width: 480px) {
+    font-size: 0.9rem; /* Even smaller for very small screens */
+  }
 `;
 
 const ProjectType = styled.p`
   color: #888;
-  font-size: 0.9rem;
+  font-size: 0.9rem; /* Default font size */
+
+  @media (max-width: 768px) {
+    font-size: 0.8rem; /* Smaller font size for tablets and mobile */
+  }
+
+  @media (max-width: 480px) {
+    font-size: 0.7rem; /* Even smaller for very small screens */
+  }
+`;
+
+const ProjectInfo = styled.div`
+  flex: 1;
+  font-size: 1rem; /* Default font size for project info */
+
+  @media (max-width: 768px) {
+    font-size: 0.9rem; /* Smaller font size for tablets and mobile */
+  }
+
+  @media (max-width: 480px) {
+    font-size: 0.8rem; /* Even smaller for very small screens */
+  }
 `;
 
 const AdminActions = styled.div`
@@ -186,17 +213,24 @@ const Projects = ({ adminMode }: Props) => {
                 <p>{project.description}</p>
 
                 {/* ✅ Fix URLs if missing "https://" */}
-                <a href={project.repo_link.startsWith('http') ? project.repo_link : `https://${project.repo_link}`} 
-                  target="_blank" 
-                  rel="noopener noreferrer">
+                <a
+                  href={project.repo_link.startsWith('http') ? project.repo_link : `https://${project.repo_link}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="project-link"
+                >
                   GitHub Repo
                 </a>
                 {" | "}
-                <a href={project.live_demo.startsWith('http') ? project.live_demo : `https://${project.live_demo}`} 
-                  target="_blank" 
-                  rel="noopener noreferrer">
+                <a
+                  href={project.live_demo.startsWith('http') ? project.live_demo : `https://${project.live_demo}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="project-link"
+                >
                   Live Demo
                 </a>
+
               </ProjectInfo>
 
               {adminMode && (  

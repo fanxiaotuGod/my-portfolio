@@ -40,3 +40,27 @@
 .read-the-docs {
   color: #888;
 }
+
+
+.project-link {
+  font-size: 1rem; /* Default font size for larger screens */
+  text-decoration: none;
+  color: #ffd700;
+  transition: color 0.3s ease;
+}
+
+.project-link:hover {
+  color: #fff;
+}
+
+@media (max-width: 768px) {
+  .project-link {
+    font-size: 0.9rem; /* Slightly smaller font size for tablets */
+  }
+}
+
+@media (max-width: 480px) {
+  .project-link {
+    font-size: 0.8rem; /* Smaller font size for mobile */
+  }
+}
