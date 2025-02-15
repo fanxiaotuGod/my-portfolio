@@ -2,6 +2,7 @@ import { useState } from 'react';
 import styled from '@emotion/styled';
 import axios from 'axios';
 
+// ✅ Use environment variable for API URL
 const API_URL = "https://my-portfolio-production-17cf.up.railway.app/projects";
 
 const PopupForm = styled.div`
@@ -100,9 +101,13 @@ const AddProject = ({ onProjectAdded }: { onProjectAdded: () => void }) => {
       onProjectAdded();
       setShowForm(false);
       setNewProject({ name: '', description: '', tech_stack: '', repo_link: '', live_demo: '' });
-    } catch (error) {
+    } catch (error: any) {
       console.error("❌ Error adding project:", error);
-      alert("❌ Failed to add project. Please try again.");
+      if (error.response) {
+        alert(`❌ Failed: ${error.response.data.error || "Something went wrong"}`);
+      } else {
+        alert("❌ Network error, check your connection.");
+      }
     } finally {
       setLoading(false);
     }

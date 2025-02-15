@@ -2,6 +2,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import styled from '@emotion/styled';
 
+// ✅ Use environment variable for API URL
 const API_URL = "https://my-portfolio-production-17cf.up.railway.app/projects";
 
 const DeleteButton = styled.button`
@@ -35,17 +36,23 @@ const DeleteProject = ({ projectId, onProjectDeleted }: { projectId: number, onP
       await axios.delete(`${API_URL}/${projectId}`);
       alert("✅ Project deleted successfully!");
       onProjectDeleted();
-    } catch (error) {
+    } catch (error: any) {
       console.error("❌ Error deleting project:", error);
-      alert("❌ Failed to delete project. Please try again.");
+      if (error.response) {
+        alert(`❌ Failed: ${error.response.data.error || "Something went wrong"}`);
+      } else {
+        alert("❌ Network error, check your connection.");
+      }
     } finally {
       setLoading(false);
     }
   };
 
-  return <DeleteButton onClick={handleDeleteProject} disabled={loading}>
-    {loading ? "Deleting..." : "Delete"}
-  </DeleteButton>;
+  return (
+    <DeleteButton onClick={handleDeleteProject} disabled={loading}>
+      {loading ? "Deleting..." : "Delete"}
+    </DeleteButton>
+  );
 };
 
 export default DeleteProject;

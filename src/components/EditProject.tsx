@@ -2,7 +2,8 @@ import { useState } from 'react';
 import styled from '@emotion/styled';
 import axios from 'axios';
 
-const API_URL = "https://my-portfolio-production-17cf.up.railway.app/projects";
+// ✅ Use environment variable for API URL
+const API_URL =  "https://my-portfolio-production-17cf.up.railway.app/projects";
 
 const Button = styled.button`
   padding: 0.4rem 0.8rem;
@@ -62,19 +63,31 @@ const EditProject = ({ project, onProjectUpdated }: { project: any, onProjectUpd
       return;
     }
 
+    // ✅ Avoid unnecessary API calls if nothing changed
+    if (JSON.stringify(updatedProject) === JSON.stringify(project)) {
+      alert("⚠️ No changes detected.");
+      setIsEditing(false);
+      return;
+    }
+
     if (!window.confirm("⚡ Confirm update for this project?")) return;
 
     setSaving(true);
     try {
-      await axios.put(`${API_URL}/${project.id}`, updatedProject);
+      const response = await axios.put(`${API_URL}/${project.id}`, updatedProject);
       alert("✅ Project updated successfully!");
       onProjectUpdated(); 
       setIsEditing(false);
-    } catch (error) {
+    } catch (error: any) {
       console.error("❌ Error updating project:", error);
-      alert("❌ Update failed! Please check your network or backend.");
+      if (error.response) {
+        alert(`❌ Failed: ${error.response.data.error || "Something went wrong"}`);
+      } else {
+        alert("❌ Network error, check your connection.");
+      }
+    } finally {
+      setSaving(false);
     }
-    setSaving(false);
   };
 
   return (
