@@ -104,76 +104,125 @@ const BulletPoints = styled.ul`
 
 const Resume = () => {
   const handleDownloadCV = () => {
-    window.open('/path-to-your-cv.pdf', '_blank')
+    window.open('/../../Resume2025_Haocheng_Fan.pdf', '_blank')
   }
 
   return (
-    <Section>
-      {/* Title and Download Button Side by Side */}
-      <TitleWrapper>
-        <Title>Resume</Title>
-        <DownloadButton onClick={handleDownloadCV}>
-          📥 Download CV
-        </DownloadButton>
-      </TitleWrapper>
+      <Section>
+        {/* Title and Download Button Side by Side */}
+        <TitleWrapper>
+          <Title>Resume</Title>
+          <DownloadButton href="/Resume2025_Haocheng_Fan.pdf" download>
+            📥 Download CV
+          </DownloadButton>
+        </TitleWrapper>
 
-      {/* Education Section */}
-      <Category>
-        <CategoryTitle>
-          <FaGraduationCap /> Education
-        </CategoryTitle>
-        
-        <ExperienceItem>
-          <Institution>The University of British Columbia</Institution>
-          <SubTitle>Bachelor of Science in Computer Science and Mathematics</SubTitle>
-          <Duration>2023 — 2026</Duration>
-        </ExperienceItem>
+        {/* Education Section */}
+        <Category>
+          <CategoryTitle>
+            <FaGraduationCap /> Education
+          </CategoryTitle>
 
-        <ExperienceItem>
-          <Institution>Langara College</Institution>
-          <SubTitle>University Transfer Program</SubTitle>
-          <Duration>2022 — 2023</Duration>
-        </ExperienceItem>
-      </Category>
+          <ExperienceItem>
+            <Institution>The University of British Columbia</Institution>
+            <SubTitle>Bachelor of Science in Computer Science and Mathematics</SubTitle>
+            <Duration>2023 — 2026</Duration>
+          </ExperienceItem>
 
-      {/* Experience Section */}
-      <Category>
-        <CategoryTitle>
-          <FaBriefcase /> Related Experience
-        </CategoryTitle>
-        
-        <ExperienceItem>
-          <Institution>UBC GAVE Development Club</Institution>
-          <SubTitle>Software Development Engineer</SubTitle>
-          <Duration>Sep, 2024 — Present</Duration>
-          <Location>Vancouver, Canada</Location>
+          <ExperienceItem>
+            <Institution>Langara College</Institution>
+            <SubTitle>University Transfer Program</SubTitle>
+            <Duration>2022 — 2023</Duration>
+          </ExperienceItem>
+        </Category>
+
+        {/* Technical Skills Section */}
+        <Category>
+          <CategoryTitle>🛠 Technical Skills</CategoryTitle>
           <BulletPoints>
-            <li>Developed and programmed interactive 2D and 3D game mechanics using Unity and C#.</li>
-            <li>Utilized version control (Git, GitHub) for collaborative development with the team.</li>
-            <li>Collaborated with artists and designers to create immersive gameplay experiences.</li>
-            <li>Participated in weekly sprint meetings to discuss progress, features, and challenges.</li>
+            <li><strong>Languages:</strong> TypeScript, JavaScript, Java, C++, Python</li>
+            <li><strong>Developer Tools:</strong> Visual Studio Code, IntelliJ, MatLab, Convex, Git, Railway</li>
+            <li><strong>Technologies:</strong> HTML, CSS, React, Node.js, SQL, Django, Bootstrap, Tailwind, Redis, Docker, AWS</li>
           </BulletPoints>
-        </ExperienceItem>
+        </Category>
 
+        {/* Experience Section */}
+        <Category>
+          <CategoryTitle>
+            <FaBriefcase /> Related Experience
+          </CategoryTitle>
 
-        <ExperienceItem>
-          <Institution>UBC CIC Generative AI and Sustainability Hackathon</Institution>
-          <SubTitle>Medical Diagnostic Project – Software Engineer</SubTitle>
-          <Duration>March, 2024</Duration>
-          <Location>Vancouver, Canada</Location>
-          <BulletPoints>
-            <li>Developed an AI-powered medical diagnostic app using AWS services.</li>
-            <li>Built a Flutter-based frontend to provide online consultations to users.</li>
-            <li>Implemented AWS Cognito for user authentication and secure login.</li>
-            <li>Designed and integrated RESTful APIs using AWS API Gateway and Lambda functions.</li>
-            <li>Leveraged AWS Bedrock to generate symptom-based medical recommendations.</li>
-            <li>Enhanced healthcare accessibility for underserved regions through AI-driven solutions.</li>
-            <li>Worked in a fast-paced hackathon environment, collaborating with a multidisciplinary team.</li>
-          </BulletPoints>
-        </ExperienceItem>
+          <ExperienceItem>
+            <Institution>UBC GAVE Development Club</Institution>
+            <SubTitle>Software Development Engineer</SubTitle>
+            <Duration>Sep 2024 — Present</Duration>
+            <Location>Vancouver, Canada</Location>
+            <BulletPoints>
+              <li>Developed and programmed interactive 2D and 3D game mechanics using Unity and C#.</li>
+              <li>Utilized version control (Git, GitHub) for collaborative development with the team.</li>
+              <li>Collaborated with artists and designers to create immersive gameplay experiences.</li>
+              <li>Participated in weekly sprint meetings to discuss progress, features, and challenges.</li>
+            </BulletPoints>
+          </ExperienceItem>
 
-      </Category>
-    </Section>
+          <ExperienceItem>
+            <Institution>AI Interview Coach (Easy Hack Hackathon)</Institution>
+            <SubTitle>Software Engineer</SubTitle>
+            <Duration>March 15-16, 2025</Duration>
+            <Location>Vancouver, Canada</Location>
+            <BulletPoints>
+              <li>Developed an AI-powered interview simulation using React, TypeScript, and Tailwind.</li>
+              <li>Integrated OpenAI’s GPT-4 & Text-to-Speech API with Web Speech API for voice interaction.</li>
+              <li>Utilized AWS S3 for secure resume storage, enhancing scalability and reliability.</li>
+              <li>Extracted job description & resume content using React-PDF for AI-driven contextual interviews.</li>
+            </BulletPoints>
+          </ExperienceItem>
+
+          <ExperienceItem>
+            <Institution>JobMatcher (Build with AI Hackathon)</Institution>
+            <SubTitle>Software Engineer</SubTitle>
+            <Duration>March 1, 2025</Duration>
+            <Location>Vancouver, Canada</Location>
+            <BulletPoints>
+              <li>Developed an AI-powered job application automation platform using React and TypeScript.</li>
+              <li>Built an AI-driven job matching system with Node.js backend and Next.js API Routes.</li>
+              <li>Used PostgreSQL to store job listings, user profiles, and application statuses.</li>
+              <li>Automated PDF content extraction using Gumloop workflows.</li>
+            </BulletPoints>
+          </ExperienceItem>
+
+        </Category>
+
+        {/* Projects Section */}
+        <Category>
+          <CategoryTitle>🚀 Projects</CategoryTitle>
+
+          <ExperienceItem>
+            <Institution>UBC Campus Explorer</Institution>
+            <SubTitle>Software Engineer</SubTitle>
+            <Duration>Sep - Dec 2024</Duration>
+            <BulletPoints>
+              <li>Built a backend query system using Node.js and TypeScript.</li>
+              <li>Implemented black-box testing to validate dataset queries.</li>
+              <li>Developed a RESTful API with Express.js for retrieving room coordinates.</li>
+              <li>Integrated Google Maps API with Next.js for an interactive campus map.</li>
+            </BulletPoints>
+          </ExperienceItem>
+
+          <ExperienceItem>
+            <Institution>Medical Diagnostic AI Platform (UBC CIC Hackathon)</Institution>
+            <SubTitle>Software Engineer</SubTitle>
+            <Duration>Oct 5, 2024</Duration>
+            <BulletPoints>
+              <li>Developed a Flutter-based mobile app for AI-driven medical diagnostics.</li>
+              <li>Implemented secure authentication using AWS Cognito.</li>
+              <li>Designed a serverless backend using AWS Lambda, API Gateway, and Bedrock.</li>
+            </BulletPoints>
+          </ExperienceItem>
+
+        </Category>
+
+      </Section>
   )
 }
 
