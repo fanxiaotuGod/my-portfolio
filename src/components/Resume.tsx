@@ -112,7 +112,7 @@ const Resume = () => {
         {/* Title and Download Button Side by Side */}
         <TitleWrapper>
           <Title>Resume</Title>
-          <DownloadButton href="/Resume2025_Haocheng_Fan.pdf" download>
+          <DownloadButton onClick={handleDownloadCV}>
             📥 Download CV
           </DownloadButton>
         </TitleWrapper>
