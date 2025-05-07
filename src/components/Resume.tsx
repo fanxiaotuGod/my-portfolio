@@ -104,7 +104,7 @@ const BulletPoints = styled.ul`
 
 const Resume = () => {
   const handleDownloadCV = () => {
-    window.open('https://drive.google.com/file/d/1BxCBtBkDqH9jEz3fAlDwBbS-zvY8H5xm/view?usp=sharing', '_blank')
+    window.open('https://drive.google.com/file/d/1ZbeawQNWP_nTmANQ2nfYDO1iuG724RLt/view?usp=sharing', '_blank')
   }
 
   return (
